@@ -3,23 +3,28 @@
     <style>
       table { width: 100%; border-collapse: collapse; } th, td { padding: 8px;
       border: 1px solid #dddddd; text-align: left; } th { background-color:
-      #f2f2f2; }
+      #f2f2f2; } tr.offline td {
+        background-color: #ffdddd; /* Light red background for offline websites */
+        color: red; /* Red text color for offline websites */
+      }
     </style>
   </head>
   <body>
-    <h2>The following websites are offline:</h2>
+    <h2>Report websites status:</h2>
     <table>
       <thead>
         <tr>
           <th>Website</th>
-          <th>Error</th>
+          <th>Ping Time (ms)</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         {{#each websites}}
-          <tr>
+          <tr class="{{#if this.status}}online{{else}}offline{{/if}}">
             <td>{{this.url}}</td>
-            <td>{{this.error}}</td>
+            <td>{{this.time}}</td>
+            <td>{{#if this.status}}Online{{else}}Offline{{/if}}</td>
           </tr>
         {{/each}}
       </tbody>
